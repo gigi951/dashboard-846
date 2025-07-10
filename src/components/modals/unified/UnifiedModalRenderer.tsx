@@ -26,7 +26,7 @@ export function UnifiedModalRenderer() {
       <ComparisonModal
         isOpen={modals.comparison?.isOpen || false}
         onClose={() => closeModal('comparison')}
-        data={modals.comparison?.data || { items: [] }}
+        items={modals.comparison?.data?.items || []}
         onExport={(items) => {
           console.log('Export comparison:', items);
         }}
@@ -44,31 +44,44 @@ export function UnifiedModalRenderer() {
       <ExportModal
         isOpen={modals.export?.isOpen || false}
         onClose={() => closeModal('export')}
-        data={modals.export?.data || { data: [], filename: 'export' }}
+        data={modals.export?.data?.data || []}
+        filename={modals.export?.data?.filename || 'export'}
       />
 
       <ImportModal
         isOpen={modals.import?.isOpen || false}
         onClose={() => closeModal('import')}
         acceptedTypes={modals.import?.data?.acceptedTypes || ['.csv', '.xlsx']}
+        onImport={(files) => {
+          console.log('Import files:', files);
+          closeModal('import');
+        }}
       />
 
       <FeedbackModal
         isOpen={modals.feedback?.isOpen || false}
         onClose={() => closeModal('feedback')}
-        data={modals.feedback?.data || { type: 'feedback' }}
+        type={modals.feedback?.data?.type || 'feedback'}
+        itemTitle={modals.feedback?.data?.itemTitle}
       />
 
       <AdvancedSearchModal
         isOpen={modals.advancedSearch?.isOpen || false}
         onClose={() => closeModal('advancedSearch')}
-        data={modals.advancedSearch?.data || {}}
+        onSearch={(criteria) => {
+          console.log('Advanced search:', criteria);
+          closeModal('advancedSearch');
+        }}
       />
 
       <ManagementModal
         isOpen={modals.management?.isOpen || false}
         onClose={() => closeModal('management')}
-        data={modals.management?.data || { type: 'domain' }}
+        type={modals.management?.data?.type || 'domain'}
+        onSave={(data) => {
+          console.log('Management saved:', data);
+          closeModal('management');
+        }}
       />
 
       <AlertManagementModal
