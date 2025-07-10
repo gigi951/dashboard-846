@@ -6,8 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { 
-  HelpCircle, MessageSquare, Phone, Mail, Search, Plus, Filter
+  HelpCircle, MessageSquare, Phone, Mail, Search, Plus, Filter, FileText
 } from "lucide-react";
+import { TechnicalSpecification } from "@/components/docs/TechnicalSpecification";
 
 interface HelpSectionsProps {
   section: string;
@@ -28,7 +29,8 @@ export function HelpSections({ section, language = "fr" }: HelpSectionsProps) {
         supportDesc: "Assistance et support",
         faq: "FAQ",
         chatSupport: "Chat Support",
-        helpCenter: "Centre d'aide"
+        helpCenter: "Centre d'aide",
+        technicalSpec: "Fiche technique"
       },
       ar: {
         aboutTitle: "حول",
@@ -39,7 +41,8 @@ export function HelpSections({ section, language = "fr" }: HelpSectionsProps) {
         supportDesc: "المساعدة والدعم",
         faq: "الأسئلة الشائعة",
         chatSupport: "دعم المحادثة",
-        helpCenter: "مركز المساعدة"
+        helpCenter: "مركز المساعدة",
+        technicalSpec: "المواصفات الفنية"
       },
       en: {
         aboutTitle: "About",
@@ -50,7 +53,8 @@ export function HelpSections({ section, language = "fr" }: HelpSectionsProps) {
         supportDesc: "Assistance and support",
         faq: "FAQ",
         chatSupport: "Chat Support",
-        helpCenter: "Help Center"
+        helpCenter: "Help Center",
+        technicalSpec: "Technical Specification"
       }
     };
     return translations[language as keyof typeof translations]?.[key as keyof typeof translations['fr']] || key;
@@ -143,7 +147,7 @@ export function HelpSections({ section, language = "fr" }: HelpSectionsProps) {
             </div>
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="faq" className="flex items-center gap-2">
                   <HelpCircle className="w-4 h-4" />
                   {getText("faq")}
@@ -155,6 +159,10 @@ export function HelpSections({ section, language = "fr" }: HelpSectionsProps) {
                 <TabsTrigger value="help" className="flex items-center gap-2">
                   <HelpCircle className="w-4 h-4" />
                   {getText("helpCenter")}
+                </TabsTrigger>
+                <TabsTrigger value="technical-spec" className="flex items-center gap-2">
+                  <FileText className="w-4 h-4" />
+                  {getText("technicalSpec")}
                 </TabsTrigger>
               </TabsList>
 
@@ -241,6 +249,10 @@ export function HelpSections({ section, language = "fr" }: HelpSectionsProps) {
                     </div>
                   </CardContent>
                 </Card>
+              </TabsContent>
+
+              <TabsContent value="technical-spec" className="space-y-4">
+                <TechnicalSpecification />
               </TabsContent>
             </Tabs>
           </div>

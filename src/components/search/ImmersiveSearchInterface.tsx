@@ -13,16 +13,6 @@ export function ImmersiveSearchInterface() {
 
   return (
     <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-2">
-          <Globe className="w-8 h-8 text-indigo-600" />
-          Interface de Recherche Immersive
-        </h2>
-        <p className="text-gray-600 text-lg">
-          Explorez le droit avec des outils de visualisation avancés
-        </p>
-      </div>
-
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="concept-map">Carte</TabsTrigger>

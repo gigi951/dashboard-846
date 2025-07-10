@@ -57,16 +57,6 @@ export function SemanticSearchSection() {
 
   return (
     <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-2">
-          <Brain className="w-8 h-8 text-purple-600" />
-          Recherche Sémantique et Conceptuelle
-        </h2>
-        <p className="text-gray-600 text-lg">
-          Recherche avancée par concepts et relations juridiques
-        </p>
-      </div>
-
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="concepts">Concepts</TabsTrigger>
