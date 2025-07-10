@@ -1,9 +1,9 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 import { 
   Clock, 
   Calendar, 
@@ -13,11 +13,14 @@ import {
   FileText,
   Users,
   Building,
-  Filter
+  Filter,
+  Search
 } from 'lucide-react';
 
 export function TimelineTab() {
   const [selectedProcedure, setSelectedProcedure] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProcedures, setFilteredProcedures] = useState<any[]>([]);
 
   const procedures = [
     { id: 'all', title: 'Toutes les procédures' },
@@ -78,6 +81,24 @@ export function TimelineTab() {
     }
   ];
 
+  const handleSearch = () => {
+    if (!searchQuery) {
+      setFilteredProcedures([]);
+      return;
+    }
+    
+    const filtered = procedures.filter(procedure => 
+      procedure.title.toLowerCase().includes(searchQuery.toLowerCase()) && procedure.id !== 'all'
+    );
+    setFilteredProcedures(filtered);
+  };
+
+  const handleProcedureSelect = (procedureId: string) => {
+    setSelectedProcedure(procedureId);
+    setSearchQuery('');
+    setFilteredProcedures([]);
+  };
+
   const filteredTimelineData = selectedProcedure === 'all' 
     ? timelineData 
     : timelineData.filter(item => item.procedureId === selectedProcedure);
@@ -112,27 +133,70 @@ export function TimelineTab() {
 
   return (
     <div className="space-y-6">
-      {/* Filtre par procédure */}
+      {/* Filtre de recherche */}
       <Card>
         <CardContent className="p-4">
-          <div className="flex items-center gap-4">
-            <Filter className="w-5 h-5 text-emerald-600" />
-            <div className="flex-1">
-              <label className="text-sm font-medium text-gray-700 mb-2 block">
-                Filtrer par procédure administrative
-              </label>
-              <Select value={selectedProcedure} onValueChange={setSelectedProcedure}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Sélectionner une procédure" />
-                </SelectTrigger>
-                <SelectContent>
-                  {procedures.map((procedure) => (
-                    <SelectItem key={procedure.id} value={procedure.id}>
-                      {procedure.title}
-                    </SelectItem>
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <Filter className="w-5 h-5 text-emerald-600" />
+              <div className="flex-1">
+                <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  Rechercher une procédure administrative spécifique
+                </label>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Rechercher par titre de procédure..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1"
+                  />
+                  <Button onClick={handleSearch} variant="outline">
+                    <Search className="w-4 h-4 mr-2" />
+                    Rechercher
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Résultats de recherche */}
+            {filteredProcedures.length > 0 && (
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700">Résultats de la recherche :</h4>
+                <div className="grid grid-cols-1 gap-2">
+                  {filteredProcedures.map((procedure) => (
+                    <Button
+                      key={procedure.id}
+                      variant="outline"
+                      onClick={() => handleProcedureSelect(procedure.id)}
+                      className="justify-start h-auto p-3 text-left"
+                    >
+                      <FileText className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span className="text-sm">{procedure.title}</span>
+                    </Button>
                   ))}
-                </SelectContent>
-              </Select>
+                </div>
+              </div>
+            )}
+
+            {/* Filtre par sélection */}
+            <div className="flex items-center gap-4">
+              <div className="flex-1">
+                <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  Ou filtrer par procédure administrative
+                </label>
+                <Select value={selectedProcedure} onValueChange={setSelectedProcedure}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Sélectionner une procédure" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {procedures.map((procedure) => (
+                      <SelectItem key={procedure.id} value={procedure.id}>
+                        {procedure.title}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         </CardContent>

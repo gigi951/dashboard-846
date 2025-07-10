@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -54,24 +55,6 @@ export function SemanticSearchSection() {
     }, 1500);
   };
 
-  const conceptualFeatures = [
-    {
-      icon: <Brain className="w-5 h-5 text-purple-600" />,
-      title: "Recherche Conceptuelle",
-      description: "Trouve des documents par idées et concepts juridiques"
-    },
-    {
-      icon: <Quote className="w-5 h-5 text-blue-600" />,
-      title: "Citations Croisées",
-      description: "Navigation intelligente entre textes liés et références"
-    },
-    {
-      icon: <Network className="w-5 h-5 text-green-600" />,
-      title: "Cas Similaires",
-      description: "Matching basé sur les faits juridiques similaires"
-    }
-  ];
-
   return (
     <div className="space-y-6">
       <div className="text-center">
@@ -82,21 +65,6 @@ export function SemanticSearchSection() {
         <p className="text-gray-600 text-lg">
           Recherche avancée par concepts et relations juridiques
         </p>
-      </div>
-
-      {/* Fonctionnalités principales */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {conceptualFeatures.map((feature, index) => (
-          <Card key={index} className="border-2 border-dashed border-gray-200 hover:border-purple-300 transition-colors">
-            <CardContent className="pt-4">
-              <div className="flex items-center gap-3 mb-2">
-                {feature.icon}
-                <h3 className="font-semibold">{feature.title}</h3>
-              </div>
-              <p className="text-sm text-gray-600">{feature.description}</p>
-            </CardContent>
-          </Card>
-        ))}
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>

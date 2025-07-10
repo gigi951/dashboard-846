@@ -1,9 +1,9 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 import { 
   Clock, 
   Calendar, 
@@ -13,11 +13,14 @@ import {
   FileText,
   Users,
   Scale,
-  Filter
+  Filter,
+  Search
 } from 'lucide-react';
 
 export function LegalTextsTimelineTab() {
   const [selectedText, setSelectedText] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredTexts, setFilteredTexts] = useState<any[]>([]);
 
   const legalTexts = [
     { id: 'all', title: 'Tous les textes juridiques' },
@@ -78,6 +81,24 @@ export function LegalTextsTimelineTab() {
     }
   ];
 
+  const handleSearch = () => {
+    if (!searchQuery) {
+      setFilteredTexts([]);
+      return;
+    }
+    
+    const filtered = legalTexts.filter(text => 
+      text.title.toLowerCase().includes(searchQuery.toLowerCase()) && text.id !== 'all'
+    );
+    setFilteredTexts(filtered);
+  };
+
+  const handleTextSelect = (textId: string) => {
+    setSelectedText(textId);
+    setSearchQuery('');
+    setFilteredTexts([]);
+  };
+
   const filteredTimelineData = selectedText === 'all' 
     ? timelineData 
     : timelineData.filter(item => item.textId === selectedText);
@@ -112,27 +133,70 @@ export function LegalTextsTimelineTab() {
 
   return (
     <div className="space-y-6">
-      {/* Filtre par texte juridique */}
+      {/* Filtre de recherche */}
       <Card>
         <CardContent className="p-4">
-          <div className="flex items-center gap-4">
-            <Filter className="w-5 h-5 text-emerald-600" />
-            <div className="flex-1">
-              <label className="text-sm font-medium text-gray-700 mb-2 block">
-                Filtrer par texte juridique
-              </label>
-              <Select value={selectedText} onValueChange={setSelectedText}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Sélectionner un texte juridique" />
-                </SelectTrigger>
-                <SelectContent>
-                  {legalTexts.map((text) => (
-                    <SelectItem key={text.id} value={text.id}>
-                      {text.title}
-                    </SelectItem>
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <Filter className="w-5 h-5 text-emerald-600" />
+              <div className="flex-1">
+                <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  Rechercher un texte juridique spécifique
+                </label>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Rechercher par titre de texte juridique..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1"
+                  />
+                  <Button onClick={handleSearch} variant="outline">
+                    <Search className="w-4 h-4 mr-2" />
+                    Rechercher
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Résultats de recherche */}
+            {filteredTexts.length > 0 && (
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700">Résultats de la recherche :</h4>
+                <div className="grid grid-cols-1 gap-2">
+                  {filteredTexts.map((text) => (
+                    <Button
+                      key={text.id}
+                      variant="outline"
+                      onClick={() => handleTextSelect(text.id)}
+                      className="justify-start h-auto p-3 text-left"
+                    >
+                      <FileText className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span className="text-sm">{text.title}</span>
+                    </Button>
                   ))}
-                </SelectContent>
-              </Select>
+                </div>
+              </div>
+            )}
+
+            {/* Filtre par sélection */}
+            <div className="flex items-center gap-4">
+              <div className="flex-1">
+                <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  Ou filtrer par texte juridique
+                </label>
+                <Select value={selectedText} onValueChange={setSelectedText}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Sélectionner un texte juridique" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {legalTexts.map((text) => (
+                      <SelectItem key={text.id} value={text.id}>
+                        {text.title}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         </CardContent>

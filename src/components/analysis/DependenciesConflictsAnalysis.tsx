@@ -6,7 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { GitCompareArrows, AlertTriangle, Link, FileText, ClipboardList } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { GitCompareArrows, AlertTriangle, Link, FileText, ClipboardList, Search, Filter } from 'lucide-react';
 
 interface Item {
   id: string;
@@ -58,6 +59,8 @@ const mockConflicts: Conflict[] = [
 export function DependenciesConflictsAnalysis() {
   const [selectedType, setSelectedType] = useState<'legal' | 'procedure' | ''>('');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   const [analysisResults, setAnalysisResults] = useState<{
     dependencies: Dependency[];
     conflicts: Conflict[];
@@ -65,7 +68,17 @@ export function DependenciesConflictsAnalysis() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const getCurrentItems = () => {
-    return selectedType === 'legal' ? mockLegalTexts : mockProcedures;
+    const items = selectedType === 'legal' ? mockLegalTexts : mockProcedures;
+    if (!searchQuery) return items;
+    return items.filter(item => 
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.type.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
+  const handleSearch = () => {
+    const items = getCurrentItems();
+    setFilteredItems(items);
   };
 
   const handleItemSelection = (itemId: string, checked: boolean) => {
@@ -94,6 +107,8 @@ export function DependenciesConflictsAnalysis() {
   const resetAnalysis = () => {
     setSelectedType('');
     setSelectedItems([]);
+    setSearchQuery('');
+    setFilteredItems([]);
     setAnalysisResults(null);
   };
 
@@ -136,6 +151,8 @@ export function DependenciesConflictsAnalysis() {
               <Select value={selectedType} onValueChange={(value: 'legal' | 'procedure') => {
                 setSelectedType(value);
                 setSelectedItems([]);
+                setSearchQuery('');
+                setFilteredItems([]);
               }}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Sélectionner le type d'éléments" />
@@ -158,12 +175,47 @@ export function DependenciesConflictsAnalysis() {
             </CardContent>
           </Card>
 
+          {/* Filtre de recherche */}
+          {selectedType && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Filter className="w-5 h-5" />
+                  2. Rechercher et filtrer les éléments
+                </CardTitle>
+                <CardDescription>
+                  Utilisez le filtre pour trouver rapidement les éléments que vous souhaitez analyser
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex gap-2 mb-4">
+                  <Input
+                    placeholder="Rechercher par titre ou type..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1"
+                  />
+                  <Button onClick={handleSearch} variant="outline">
+                    <Search className="w-4 h-4 mr-2" />
+                    Rechercher
+                  </Button>
+                </div>
+                
+                {filteredItems.length > 0 && (
+                  <div className="text-sm text-gray-600 mb-2">
+                    {filteredItems.length} résultat(s) trouvé(s)
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
           {/* Sélection des éléments */}
           {selectedType && (
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">
-                  2. Sélectionner les éléments à comparer
+                  3. Sélectionner les éléments à comparer
                 </CardTitle>
                 <CardDescription>
                   Choisissez au moins 2 éléments pour effectuer l'analyse (minimum 2, maximum 5)
@@ -171,7 +223,7 @@ export function DependenciesConflictsAnalysis() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {getCurrentItems().map((item) => {
+                  {(filteredItems.length > 0 ? filteredItems : getCurrentItems()).map((item) => {
                     const TypeIcon = getTypeIcon(item.type);
                     return (
                       <div key={item.id} className="flex items-start space-x-3 p-3 border rounded-lg hover:bg-gray-50">

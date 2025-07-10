@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,29 +11,6 @@ export function ImmersiveSearchInterface() {
   const [activeTab, setActiveTab] = useState("concept-map");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const immersiveFeatures = [
-    {
-      icon: <Map className="w-5 h-5 text-indigo-600" />,
-      title: "Carte Conceptuelle",
-      description: "Visualisation interactive des connexions juridiques"
-    },
-    {
-      icon: <Clock className="w-5 h-5 text-green-600" />,
-      title: "Timeline Intelligente", 
-      description: "Navigation chronologique des évolutions réglementaires"
-    },
-    {
-      icon: <MapPin className="w-5 h-5 text-red-600" />,
-      title: "Géolocalisation",
-      description: "Textes applicables selon la juridiction"
-    },
-    {
-      icon: <Layers className="w-5 h-5 text-purple-600" />,
-      title: "Multimodal",
-      description: "Recherche combinée texte, voix et image"
-    }
-  ];
-
   return (
     <div className="space-y-6">
       <div className="text-center">
@@ -43,21 +21,6 @@ export function ImmersiveSearchInterface() {
         <p className="text-gray-600 text-lg">
           Explorez le droit avec des outils de visualisation avancés
         </p>
-      </div>
-
-      {/* Fonctionnalités immersives */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {immersiveFeatures.map((feature, index) => (
-          <Card key={index} className="border-2 border-dashed border-gray-200 hover:border-indigo-300 transition-colors">
-            <CardContent className="pt-4 text-center">
-              <div className="flex justify-center mb-2">
-                {feature.icon}
-              </div>
-              <h3 className="font-semibold mb-1">{feature.title}</h3>
-              <p className="text-xs text-gray-600">{feature.description}</p>
-            </CardContent>
-          </Card>
-        ))}
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
