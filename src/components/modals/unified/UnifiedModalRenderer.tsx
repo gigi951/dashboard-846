@@ -26,7 +26,7 @@ export function UnifiedModalRenderer() {
       <ComparisonModal
         isOpen={modals.comparison?.isOpen || false}
         onClose={() => closeModal('comparison')}
-        items={modals.comparison?.data?.items || []}
+        data={modals.comparison?.data || { items: [] }}
         onExport={(items) => {
           console.log('Export comparison:', items);
         }}
