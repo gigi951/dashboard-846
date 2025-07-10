@@ -42,7 +42,7 @@ export function LegalTextsTabs({ section, onAddLegalText, onOpenApprovalQueue, o
             },
             { 
               value: 'timeline', 
-              label: 'Timeline des procédures', 
+              label: 'Timeline des Textes Juridiques', 
               content: <LegalTextsTimelineTab />
             },
             { 

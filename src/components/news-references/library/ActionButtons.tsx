@@ -5,7 +5,7 @@ import { Plus, Upload } from 'lucide-react';
 
 export function ActionButtons() {
   return (
-    <div className="flex gap-3 mb-6">
+    <div className="flex justify-center gap-3 mb-6">
       <Button className="gap-2">
         <Plus className="w-4 h-4" />
         Ajouter

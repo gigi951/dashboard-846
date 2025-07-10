@@ -12,25 +12,6 @@ import { TabFormField } from '@/components/common/TabFormField';
 export function NextGenSearchSection() {
   const [activeTab, setActiveTab] = useState("semantic");
 
-  const searchFeatures = [
-    {
-      id: "semantic",
-      title: "Recherche Sémantique",
-      description: "Concepts, citations croisées, cas similaires",
-      icon: Brain,
-      color: "text-purple-600",
-      bgColor: "bg-purple-100"
-    },
-    {
-      id: "immersive", 
-      title: "Interface Immersive",
-      description: "Cartes, timeline, géolocalisation, multimodal",
-      icon: Globe,
-      color: "text-indigo-600",
-      bgColor: "bg-indigo-100"
-    }
-  ];
-
   return (
     <div className="space-y-6">
       <UnifiedSectionHeader
@@ -39,27 +20,6 @@ export function NextGenSearchSection() {
         description="Explorez le droit avec des technologies d'IA avancées et des interfaces immersives"
         iconColor="text-emerald-600"
       />
-
-      <Card className="border-2 border-emerald-200">
-        <CardHeader>
-          <div className="text-center">
-            <div className="flex justify-center gap-4">
-              {searchFeatures.map((feature) => {
-                const Icon = feature.icon;
-                return (
-                  <div key={feature.id} className="text-center">
-                    <div className={`w-16 h-16 mx-auto mb-2 ${feature.bgColor} rounded-full flex items-center justify-center`}>
-                      <Icon className={`w-8 h-8 ${feature.color}`} />
-                    </div>
-                    <h3 className="font-semibold text-sm">{feature.title}</h3>
-                    <p className="text-xs text-gray-600">{feature.description}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </CardHeader>
-      </Card>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2">

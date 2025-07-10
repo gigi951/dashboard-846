@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   Clock, 
   Calendar, 
@@ -11,10 +12,21 @@ import {
   AlertCircle,
   FileText,
   Users,
-  Scale
+  Scale,
+  Filter
 } from 'lucide-react';
 
 export function LegalTextsTimelineTab() {
+  const [selectedText, setSelectedText] = useState<string>('all');
+
+  const legalTexts = [
+    { id: 'all', title: 'Tous les textes juridiques' },
+    { id: '1', title: 'Loi n° 08-09 portant code de procédure civile' },
+    { id: '2', title: 'Ordonnance n° 75-58 portant code civil' },
+    { id: '3', title: 'Loi n° 90-11 relative aux relations de travail' },
+    { id: '4', title: 'Loi n° 18-05 relative au commerce électronique' }
+  ];
+
   const timelineData = [
     {
       id: 1,
@@ -25,7 +37,8 @@ export function LegalTextsTimelineTab() {
       type: "Publication",
       status: "Complété",
       authority: "Assemblée Populaire Nationale",
-      nextStep: "Entrée en vigueur dans 30 jours"
+      nextStep: "Entrée en vigueur dans 30 jours",
+      textId: "1"
     },
     {
       id: 2,
@@ -36,7 +49,8 @@ export function LegalTextsTimelineTab() {
       type: "Validation",
       status: "En cours",
       authority: "Conseil des Ministres",
-      nextStep: "Attente de promulgation"
+      nextStep: "Attente de promulgation",
+      textId: "2"
     },
     {
       id: 3,
@@ -47,7 +61,8 @@ export function LegalTextsTimelineTab() {
       type: "Dépôt",
       status: "En cours",
       authority: "Ministère de l'Éducation",
-      nextStep: "Examen par commission"
+      nextStep: "Examen par commission",
+      textId: "3"
     },
     {
       id: 4,
@@ -58,9 +73,14 @@ export function LegalTextsTimelineTab() {
       type: "Consultation",
       status: "Complété",
       authority: "Ministère de la Numérisation",
-      nextStep: "Analyse des contributions"
+      nextStep: "Analyse des contributions",
+      textId: "4"
     }
   ];
+
+  const filteredTimelineData = selectedText === 'all' 
+    ? timelineData 
+    : timelineData.filter(item => item.textId === selectedText);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -92,6 +112,32 @@ export function LegalTextsTimelineTab() {
 
   return (
     <div className="space-y-6">
+      {/* Filtre par texte juridique */}
+      <Card>
+        <CardContent className="p-4">
+          <div className="flex items-center gap-4">
+            <Filter className="w-5 h-5 text-emerald-600" />
+            <div className="flex-1">
+              <label className="text-sm font-medium text-gray-700 mb-2 block">
+                Filtrer par texte juridique
+              </label>
+              <Select value={selectedText} onValueChange={setSelectedText}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Sélectionner un texte juridique" />
+                </SelectTrigger>
+                <SelectContent>
+                  {legalTexts.map((text) => (
+                    <SelectItem key={text.id} value={text.id}>
+                      {text.title}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Statistiques de la timeline */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <Card>
@@ -130,7 +176,7 @@ export function LegalTextsTimelineTab() {
           {/* Ligne verticale de la timeline */}
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
           
-          {timelineData.map((item, index) => {
+          {filteredTimelineData.map((item, index) => {
             const TypeIcon = getTypeIcon(item.type);
             return (
               <div key={item.id} className="relative flex items-start space-x-6 pb-8">
