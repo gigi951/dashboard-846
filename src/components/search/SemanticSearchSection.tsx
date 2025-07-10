@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { EnhancedInput } from '@/components/common/EnhancedInput';
-import { Brain, Network, Quote, Search, Link, Eye, Download, MapPin, Calendar } from 'lucide-react';
+import { Brain, Network, Quote, Search, Link, Eye, Download } from 'lucide-react';
 
 interface ConceptualResult {
   id: string;

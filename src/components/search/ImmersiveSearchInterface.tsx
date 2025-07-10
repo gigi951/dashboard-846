@@ -70,42 +70,6 @@ export function ImmersiveSearchInterface() {
                     <Badge className="bg-indigo-500 text-white">Taille : Importance</Badge>
                   </div>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Card className="border-indigo-200">
-                    <CardContent className="pt-4">
-                      <h4 className="font-semibold mb-2">Contrôles Interactifs</h4>
-                      <ul className="text-sm space-y-1 text-gray-600">
-                        <li>• Zoom et navigation</li>
-                        <li>• Filtrage par domaine</li>
-                        <li>• Clustering automatique</li>
-                        <li>• Export de la vue</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-indigo-200">
-                    <CardContent className="pt-4">
-                      <h4 className="font-semibold mb-2">Types de Relations</h4>
-                      <ul className="text-sm space-y-1 text-gray-600">
-                        <li>• Hiérarchie normative</li>
-                        <li>• Citations croisées</li>
-                        <li>• Contradictions</li>
-                        <li>• Évolutions temporelles</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-indigo-200">
-                    <CardContent className="pt-4">
-                      <h4 className="font-semibold mb-2">Algorithmes IA</h4>
-                      <ul className="text-sm space-y-1 text-gray-600">
-                        <li>• Détection de communautés</li>
-                        <li>• Scoring de centralité</li>
-                        <li>• Prédiction de liens</li>
-                        <li>• Analyse de sentiment</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </div>
               </div>
             </CardContent>
           </Card>
@@ -134,33 +98,6 @@ export function ImmersiveSearchInterface() {
                     Lancer la timeline
                   </Button>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Card className="border-green-200">
-                    <CardContent className="pt-4">
-                      <h4 className="font-semibold mb-2">Fonctionnalités Timeline</h4>
-                      <ul className="text-sm space-y-1 text-gray-600">
-                        <li>• Navigation par périodes</li>
-                        <li>• Filtrage par type d'acte</li>
-                        <li>• Zoom temporel intelligent</li>
-                        <li>• Annotations contextuelles</li>
-                        <li>• Comparaison versions</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-green-200">
-                    <CardContent className="pt-4">
-                      <h4 className="font-semibold mb-2">Analyses Temporelles</h4>
-                      <ul className="text-sm space-y-1 text-gray-600">
-                        <li>• Cycles de réforme</li>
-                        <li>• Tendances législatives</li>
-                        <li>• Impact des changements</li>
-                        <li>• Prédictions d'évolution</li>
-                        <li>• Corrélations temporelles</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </div>
               </div>
             </CardContent>
           </Card>
@@ -188,45 +125,6 @@ export function ImmersiveSearchInterface() {
                     <Navigation className="w-4 h-4 mr-2" />
                     Activer la géolocalisation
                   </Button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Card className="border-red-200">
-                    <CardContent className="pt-4">
-                      <h4 className="font-semibold mb-2">Niveaux Juridictionnels</h4>
-                      <ul className="text-sm space-y-1 text-gray-600">
-                        <li>• National</li>
-                        <li>• Régional</li>
-                        <li>• Départemental</li>
-                        <li>• Communal</li>
-                        <li>• Zones spéciales</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-red-200">
-                    <CardContent className="pt-4">
-                      <h4 className="font-semibold mb-2">Critères Géographiques</h4>
-                      <ul className="text-sm space-y-1 text-gray-600">
-                        <li>• Zone urbaine/rurale</li>
-                        <li>• Littoral/montagne</li>
-                        <li>• Outre-mer</li>
-                        <li>• Zones franches</li>
-                        <li>• Parcs naturels</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-red-200">
-                    <CardContent className="pt-4">
-                      <h4 className="font-semibold mb-2">Services Intégrés</h4>
-                      <ul className="text-sm space-y-1 text-gray-600">
-                        <li>• Cartographie interactive</li>
-                        <li>• Couches thématiques</li>
-                        <li>• Export géodonnées</li>
-                        <li>• Alertes zonales</li>
-                        <li>• Comparaisons territoriales</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
                 </div>
               </div>
             </CardContent>
@@ -292,26 +190,6 @@ export function ImmersiveSearchInterface() {
                     </CardContent>
                   </Card>
                 </div>
-
-                <Card className="border-purple-200 bg-purple-50">
-                  <CardContent className="pt-4">
-                    <h4 className="font-semibold mb-3 text-purple-800">Exemple de Recherche Multimodale</h4>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center gap-2">
-                        <Badge className="bg-purple-500 text-white">Texte</Badge>
-                        <span>"contrat de bail commercial"</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge className="bg-blue-500 text-white">Voix</Badge>
-                        <span>"avec clause d'indexation"</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge className="bg-orange-500 text-white">Image</Badge>
-                        <span>Document scanné : "Bail 9 ans, Paris 11ème"</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
               </div>
             </CardContent>
           </Card>

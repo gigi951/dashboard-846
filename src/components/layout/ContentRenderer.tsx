@@ -29,6 +29,7 @@ import { NextGenSearchSection } from "@/components/search/NextGenSearchSection";
 import { EnhancedAILegalAssistant } from "@/components/ai/EnhancedAILegalAssistant";
 import { AILegalAssistant } from "@/components/AILegalAssistant";
 import { AdminPanel } from "@/components/admin/AdminPanel";
+import { TechnicalSpecification } from "@/components/docs/TechnicalSpecification";
 
 interface ContentRendererProps {
   activeSection: string;
@@ -142,6 +143,10 @@ export function ContentRenderer({ activeSection, language }: ContentRendererProp
       return <AdvancedSearchSection />;
     case "saved-searches":
       return <SavedSearchesEnhanced />;
+    
+    // Add technical specification section
+    case "technical-spec":
+      return <TechnicalSpecification />;
     
     default:
       return (
