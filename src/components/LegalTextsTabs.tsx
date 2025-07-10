@@ -6,7 +6,6 @@ import { LegalTextsPendingApprovalTab } from './legal/LegalTextsPendingApprovalT
 import { LegalTextsEnrichmentTab } from './legal/LegalTextsEnrichmentTab';
 import { LegalTextsCatalogTab } from './legal/LegalTextsCatalogTab';
 import { LegalTextsTimelineTab } from './legal/LegalTextsTimelineTab';
-import { LegalTextsComparisonTab } from './legal/LegalTextsComparisonTab';
 import { LegalTextsSearchTab } from './legal/LegalTextsSearchTab';
 import { ApprovalQueueModal } from './modals/ApprovalQueueModal';
 
@@ -45,11 +44,6 @@ export function LegalTextsTabs({ section, onAddLegalText, onOpenApprovalQueue, o
               value: 'timeline', 
               label: 'Timeline des procédures', 
               content: <LegalTextsTimelineTab />
-            },
-            { 
-              value: 'comparison', 
-              label: 'Comparaison des procédures', 
-              content: <LegalTextsComparisonTab />
             },
             { 
               value: 'history', 
@@ -117,8 +111,7 @@ export function LegalTextsTabs({ section, onAddLegalText, onOpenApprovalQueue, o
         <TabsList className={`grid w-full ${
           tabsConfig.tabs.length === 1 ? 'grid-cols-1' : 
           tabsConfig.tabs.length === 2 ? 'grid-cols-2' : 
-          tabsConfig.tabs.length === 3 ? 'grid-cols-3' : 
-          'grid-cols-4'
+          'grid-cols-3'
         }`}>
           {tabsConfig.tabs.map((tab) => (
             <TabsTrigger key={tab.value} value={tab.value} className="text-sm">

@@ -12,6 +12,7 @@ import { PerformanceAnalysis } from '@/components/analysis/PerformanceAnalysis';
 import { ComparativeAnalysis } from '@/components/analysis/ComparativeAnalysis';
 import { AIInsights } from '@/components/analysis/AIInsights';
 import { DashboardsSection } from '@/components/analysis/DashboardsSection';
+import { DependenciesConflictsAnalysis } from '@/components/analysis/DependenciesConflictsAnalysis';
 import { UnifiedSectionHeader } from '@/components/common/UnifiedSectionHeader';
 import { 
   BarChart3, 
@@ -127,14 +128,19 @@ export function AnalysisReportsSections({ section, language }: AnalysisReportsSe
   );
 
   const renderAnalysis = () => (
-    <Tabs defaultValue="performance" className="space-y-6">
-      <TabsList className="grid w-full grid-cols-5">
+    <Tabs defaultValue="dependencies" className="space-y-6">
+      <TabsList className="grid w-full grid-cols-6">
+        <TabsTrigger value="dependencies">Dépendances & Conflits</TabsTrigger>
         <TabsTrigger value="performance">Analyse de Performance</TabsTrigger>
         <TabsTrigger value="comparative">Analyse Comparative</TabsTrigger>
         <TabsTrigger value="procedures">Analyses des procédures</TabsTrigger>
         <TabsTrigger value="insights">Insights IA et Recommandations</TabsTrigger>
         <TabsTrigger value="usage">Métriques d'utilisation</TabsTrigger>
       </TabsList>
+
+      <TabsContent value="dependencies">
+        <DependenciesConflictsAnalysis />
+      </TabsContent>
 
       <TabsContent value="performance">
         <PerformanceAnalysis />

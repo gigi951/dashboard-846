@@ -2,7 +2,6 @@
 import { ProcedureHistoryTab } from '../ProcedureHistoryTab';
 import { ProceduresPendingApprovalTab } from '../ProceduresPendingApprovalTab';
 import { ProcedureCatalogTab } from '../ProcedureCatalogTab';
-import { ProcedureComparisonSection } from '../../ProcedureComparisonSection';
 import { ProcedureResourcesSection } from '../../ProcedureResourcesSection';
 import { ProcedureSearchSection } from '../../ProcedureSearchSection';
 import { TimelineTab } from '../tabs/TimelineTab';
@@ -55,11 +54,6 @@ export function getTabsConfig({
             value: 'timeline', 
             label: 'Timeline des procédures', 
             content: <TimelineTab />
-          },
-          { 
-            value: 'comparaison', 
-            label: 'Comparaison des procédures', 
-            content: <ProcedureComparisonSection />
           },
           { 
             value: 'historiques', 
