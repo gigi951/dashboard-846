@@ -367,11 +367,11 @@ export function TechnicalSpecification() {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">< 2s</div>
+              <div className="text-2xl font-bold text-green-600">&lt; 2s</div>
               <div className="text-sm text-green-700">Temps de chargement initial</div>
             </div>
             <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">< 500ms</div>
+              <div className="text-2xl font-bold text-blue-600">&lt; 500ms</div>
               <div className="text-sm text-blue-700">Temps de réponse API</div>
             </div>
             <div className="text-center p-4 bg-purple-50 rounded-lg">
